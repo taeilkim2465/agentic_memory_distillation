@@ -1,10 +1,18 @@
 # Agentic Memory Distillation
 
-This repository contains the code for our paper on agentic memory distillation — a framework for building and leveraging memory from teacher agent trajectories to improve student agent performance across tool-use benchmarks.
+This repository contains the official code for our papers on agentic memory distillation — a framework for building and leveraging memory distilled from teacher agent trajectories to improve student agent performance across tool-use benchmarks.
 
-## Overview
+## Papers
 
-We evaluate our memory distillation approach on three benchmarks:
+| Method | Paper |
+|--------|-------|
+| **SASM** | [Structurally Aligned Subtask-Level Memory for Software Engineering Agents](#) |
+| **MEMP** | [MEMP: Exploring Agent Procedural Memory](#) |
+| **RB** | [ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory](#) |
+
+## Benchmarks
+
+We evaluate all three methods on three tool-use benchmarks:
 
 | Benchmark | Directory | Description |
 |-----------|-----------|-------------|
@@ -14,11 +22,9 @@ We evaluate our memory distillation approach on three benchmarks:
 
 ## Memory Methods
 
-Each benchmark directory contains implementations of three memory strategies:
-
-- **MEMP** (Memory Experience Memory Pool): Stores proceduralized experience memories from teacher trajectories
-- **RB** (Reasoning Bank): Builds a bank of successful reasoning chains for retrieval
-- **SASM** (Subtask-Aware Semantic Memory): Decomposes tasks into subtasks and stores subtask-level memories
+- **SASM** (Structurally Aligned Subtask-Level Memory): Decomposes tasks into subtasks and stores structurally aligned subtask-level memories distilled from teacher trajectories.
+- **MEMP** (Memory Experience Memory Pool): Distills proceduralized experience memories from teacher agent trajectories for retrieval during student inference.
+- **RB** (ReasoningBank): Builds a self-evolving reasoning memory bank from successful teacher trajectories, enabling agents to scale with accumulated reasoning experience.
 
 ## Repository Structure
 
@@ -65,15 +71,17 @@ agentic_memory_distillation/
 
 ## Setup
 
-Each benchmark requires its own environment setup. Please refer to the original benchmark repositories for installation instructions, then apply the code from this repository on top.
+Each benchmark requires its own environment setup. Clone the original repository first, then overlay the code from this repo.
 
 ### AppWorld
 
 ```bash
 git clone https://github.com/ace-agent/ace-appworld.git
 cd ace-appworld
-# Follow setup instructions in the original repo
-# Then copy appworld/ contents into the cloned repo
+# Follow the setup instructions in the original repo, then:
+cp -r /path/to/this/repo/appworld/memp  ./memp
+cp -r /path/to/this/repo/appworld/rb    ./rb
+cp -r /path/to/this/repo/appworld/sasm  ./sasm
 ```
 
 ### BFCL
@@ -81,9 +89,10 @@ cd ace-appworld
 ```bash
 git clone https://github.com/ShishirPatil/gorilla.git
 cd gorilla/berkeley-function-call-leaderboard
-# Follow setup instructions in the original repo
-# Then copy bfcl/memory/ into bfcl_eval/memory/
-# And bfcl/model_handler/base_handler.py into bfcl_eval/model_handler/
+# Follow the setup instructions in the original repo, then:
+cp -r /path/to/this/repo/bfcl/common/memory        ./bfcl_eval/memory
+cp    /path/to/this/repo/bfcl/common/model_handler/base_handler.py \
+                                                    ./bfcl_eval/model_handler/base_handler.py
 ```
 
 ### ToolSandbox
@@ -91,22 +100,78 @@ cd gorilla/berkeley-function-call-leaderboard
 ```bash
 git clone https://github.com/apple/ToolSandbox.git
 cd ToolSandbox
-# Follow setup instructions in the original repo
-# Then copy toolsandbox/memory/ into tool_sandbox/memory/
-# And toolsandbox/roles/memory_augmented_agent.py into tool_sandbox/roles/
+# Follow the setup instructions in the original repo, then:
+cp -r /path/to/this/repo/toolsandbox/common/memory  ./tool_sandbox/memory
+cp    /path/to/this/repo/toolsandbox/common/roles/memory_augmented_agent.py \
+                                                    ./tool_sandbox/roles/memory_augmented_agent.py
+# Set the repo path for run scripts:
+export TOOLSANDBOX_ROOT=$(pwd)
 ```
 
 ## Running Experiments
 
-See the `scripts/` directory within each benchmark folder for experiment run scripts.
+### AppWorld
+
+```bash
+# 1. Build teacher memory
+bash appworld/memp/scripts/memp_run_teacher.sh
+
+# 2. Run student inference with memory
+bash appworld/memp/scripts/memp_run_student.sh
+```
+
+Run scripts for RB and SASM follow the same `*_teacher` → `*_student` pattern.
+
+### BFCL
+
+```bash
+# Start vLLM server (example for Qwen3-4B)
+bash bfcl/common/scripts/run_vllm_qwen3_4b.sh
+
+# Build teacher memory
+bash bfcl/common/scripts/teacher_build_memory_multi_turn.sh
+
+# Run student inference
+bash bfcl/memp/scripts/run_memp_qwen3_4b.sh   # MEMP
+bash bfcl/rb/scripts/run_rb_qwen3_4b.sh        # RB
+bash bfcl/sasm/scripts/run_sasm_qwen3_4b.sh    # SASM
+```
+
+### ToolSandbox
+
+```bash
+export TOOLSANDBOX_ROOT=/path/to/ToolSandbox
+
+# Build teacher memory and run student inference
+bash toolsandbox/memp/scripts/run_memp_teacher.sh
+bash toolsandbox/memp/scripts/run_memp_student.sh
+
+bash toolsandbox/rb/scripts/run_rb_teacher.sh
+bash toolsandbox/rb/scripts/run_rb_student.sh
+
+bash toolsandbox/sasm/scripts/run_sasm_teacher.sh
+bash toolsandbox/sasm/scripts/run_sasm_from_existing.sh
+```
 
 ## Citation
 
-If you use this code, please cite our paper:
+If you use this code, please cite our papers:
 
 ```bibtex
-@article{,
-  title={},
+@article{sasm2025,
+  title={Structurally Aligned Subtask-Level Memory for Software Engineering Agents},
+  author={},
+  year={2025}
+}
+
+@article{memp2025,
+  title={MEMP: Exploring Agent Procedural Memory},
+  author={},
+  year={2025}
+}
+
+@article{rb2025,
+  title={ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory},
   author={},
   year={2025}
 }
