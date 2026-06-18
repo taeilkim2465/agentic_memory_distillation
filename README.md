@@ -22,21 +22,45 @@ Each benchmark directory contains implementations of three memory strategies:
 
 ## Repository Structure
 
+Each benchmark directory is organized by memory method (`memp/`, `rb/`, `sasm/`), with shared code in `common/`.
+
 ```
 agentic_memory_distillation/
 ├── appworld/
-│   ├── memp/          # MEMP implementation for AppWorld
-│   ├── rb/            # RB implementation for AppWorld
-│   ├── sasm/          # SASM implementation for AppWorld
-│   └── scripts/       # Experiment run scripts
+│   ├── memp/
+│   │   ├── experiments/code/     # MEMP agent implementation
+│   │   ├── experiments/configs/  # Experiment configs (.jsonnet)
+│   │   ├── experiments/prompts/  # Prompt templates
+│   │   ├── scripts/              # Run scripts (teacher & student)
+│   │   └── generate_memp_memories.py
+│   ├── rb/
+│   │   ├── experiments/code/
+│   │   ├── experiments/configs/
+│   │   ├── experiments/prompts/
+│   │   └── scripts/
+│   └── sasm/
+│       ├── experiments/code/
+│       ├── experiments/configs/
+│       ├── experiments/prompts/
+│       ├── scripts/
+│       └── build_sasm_memory_offline.py
 ├── bfcl/
-│   ├── memory/        # Memory module (builder, injection, store)
-│   ├── model_handler/ # Modified model handler with memory injection
-│   └── scripts/       # Experiment run scripts
+│   ├── common/
+│   │   ├── memory/           # Shared memory module (builder, injection, store)
+│   │   ├── model_handler/    # Modified base_handler.py
+│   │   └── scripts/          # Baseline & evaluation scripts
+│   ├── memp/scripts/
+│   ├── rb/scripts/
+│   └── sasm/scripts/
 └── toolsandbox/
-    ├── memory/        # Memory module (builder, injection, store)
-    ├── roles/         # Memory-augmented agent role
-    └── scripts/       # Experiment run scripts
+    ├── common/
+    │   ├── memory/           # Shared memory module
+    │   ├── roles/            # memory_augmented_agent.py
+    │   └── utils/            # Utility scripts
+    ├── baseline/scripts/     # Baseline & workflow-only variants
+    ├── memp/scripts/
+    ├── rb/scripts/
+    └── sasm/scripts/
 ```
 
 ## Setup
