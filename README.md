@@ -2,14 +2,6 @@
 
 This repository contains the official code for our papers on agentic memory distillation — a framework for building and leveraging memory distilled from teacher agent trajectories to improve student agent performance across tool-use benchmarks.
 
-## Papers
-
-| Method | Paper |
-|--------|-------|
-| **SASM** | [Structurally Aligned Subtask-Level Memory for Software Engineering Agents](#) |
-| **MEMP** | [MEMP: Exploring Agent Procedural Memory](#) |
-| **RB** | [ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory](#) |
-
 ## Benchmarks
 
 We evaluate all three methods on three tool-use benchmarks:
@@ -22,9 +14,9 @@ We evaluate all three methods on three tool-use benchmarks:
 
 ## Memory Methods
 
-- **SASM** — *Structurally Aligned Subtask-Level Memory for Software Engineering Agents*: Decomposes tasks into subtasks and stores structurally aligned subtask-level memories distilled from teacher trajectories.
-- **MEMP** — *MEMP: Exploring Agent Procedural Memory*: Distills proceduralized experience memories from teacher agent trajectories for retrieval during student inference.
 - **ReasoningBank (RB)** — *ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory*: Builds a self-evolving reasoning memory bank from successful teacher trajectories, enabling agents to scale with accumulated reasoning experience.
+- **MEMP** — *MEMP: Exploring Agent Procedural Memory*: Distills proceduralized experience memories from teacher agent trajectories for retrieval during student inference.
+- **SASM** — *Structurally Aligned Subtask-Level Memory for Software Engineering Agents*: Decomposes tasks into subtasks and stores structurally aligned subtask-level memories distilled from teacher trajectories.
 
 ## Repository Structure
 
@@ -132,8 +124,8 @@ bash bfcl/common/scripts/run_vllm_qwen3_4b.sh
 bash bfcl/common/scripts/teacher_build_memory_multi_turn.sh
 
 # Run student inference
-bash bfcl/memp/scripts/run_memp_qwen3_4b.sh   # MEMP
 bash bfcl/rb/scripts/run_rb_qwen3_4b.sh        # RB
+bash bfcl/memp/scripts/run_memp_qwen3_4b.sh    # MEMP
 bash bfcl/sasm/scripts/run_sasm_qwen3_4b.sh    # SASM
 ```
 
@@ -143,13 +135,20 @@ bash bfcl/sasm/scripts/run_sasm_qwen3_4b.sh    # SASM
 export TOOLSANDBOX_ROOT=/path/to/ToolSandbox
 
 # Build teacher memory and run student inference
-bash toolsandbox/memp/scripts/run_memp_teacher.sh
-bash toolsandbox/memp/scripts/run_memp_student.sh
-
 bash toolsandbox/rb/scripts/run_rb_teacher.sh
 bash toolsandbox/rb/scripts/run_rb_student.sh
+
+bash toolsandbox/memp/scripts/run_memp_teacher.sh
+bash toolsandbox/memp/scripts/run_memp_student.sh
 
 bash toolsandbox/sasm/scripts/run_sasm_teacher.sh
 bash toolsandbox/sasm/scripts/run_sasm_from_existing.sh
 ```
 
+## Papers
+
+| Method | Paper |
+|--------|-------|
+| **RB** | [ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory](#) |
+| **MEMP** | [MEMP: Exploring Agent Procedural Memory](#) |
+| **SASM** | [Structurally Aligned Subtask-Level Memory for Software Engineering Agents](#) |
