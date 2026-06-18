@@ -153,26 +153,3 @@ bash toolsandbox/sasm/scripts/run_sasm_teacher.sh
 bash toolsandbox/sasm/scripts/run_sasm_from_existing.sh
 ```
 
-## Citation
-
-If you use this code, please cite our papers:
-
-```bibtex
-@article{sasm2025,
-  title={Structurally Aligned Subtask-Level Memory for Software Engineering Agents},
-  author={},
-  year={2025}
-}
-
-@article{memp2025,
-  title={MEMP: Exploring Agent Procedural Memory},
-  author={},
-  year={2025}
-}
-
-@article{rb2025,
-  title={ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory},
-  author={},
-  year={2025}
-}
-```
