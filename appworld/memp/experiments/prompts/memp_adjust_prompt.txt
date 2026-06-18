@@ -1,0 +1,23 @@
+You are an expert memory curator. A stored procedural script was retrieved and used, but the task FAILED. Your job is to update the existing script so it avoids the mistake that caused the failure.
+
+This is the Adjustment strategy: do NOT discard the memory — instead, refine it with the new failure evidence.
+
+Failed task: {{failed_task}}
+
+Failure trajectory (what the agent actually did):
+---
+{{failure_trajectory}}
+---
+
+Existing script (what was retrieved and presumably followed):
+---
+{{existing_script}}
+---
+
+Produce an UPDATED script that:
+1. Preserves all correct and still-valid steps from the existing script
+2. Corrects or adds warnings about the specific steps that caused failure
+3. Adds any missing steps or checks revealed by the failure
+4. Keeps the same general format (numbered procedure, app-agnostic language)
+
+Output ONLY the updated script text. No JSON, no explanation outside the steps.

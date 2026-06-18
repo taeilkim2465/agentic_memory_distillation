@@ -1,0 +1,31 @@
+You are an expert at classifying AppWorld agent subtasks.
+
+Based on the current task context and conversation history, identify what subtask phase the agent is currently in (or about to enter).
+
+## AppWorld Subtask Categories
+- **explore**: Looking up API documentation, checking available APIs/apps, understanding structure
+- **authenticate**: Retrieving credentials from supervisor, logging into apps, obtaining access tokens
+- **query**: Retrieving/reading data from APIs (searching, listing, looking up information)
+- **execute**: Performing state-changing actions (sending messages, payments, creating/updating/deleting)
+- **verify**: Completing the task with complete_task(), final validation
+
+## Task Instruction
+{{task_instruction}}
+
+## Conversation History So Far
+{{conversation_history}}
+
+## Your Task
+1. Analyze what the agent has done so far and what it needs to do next
+2. Identify the category z of the CURRENT/NEXT subtask
+3. Write a concise description d of what specifically needs to be accomplished (1-2 sentences, mention app names and data types)
+
+Output a JSON object:
+{
+  "z": "explore",
+  "d": "Look up Spotify API docs to identify which endpoints are needed for the task"
+}
+
+Categories must be exactly one of: explore, authenticate, query, execute, verify
+
+Respond with ONLY the JSON object, no additional text.

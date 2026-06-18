@@ -1,0 +1,33 @@
+You are an expert at planning AppWorld agent tasks.
+
+Given a task instruction, predict the sequence of subtasks needed to complete it.
+
+## AppWorld Subtask Categories
+- **explore**: Checking API documentation, discovering available APIs/apps, understanding task structure
+- **authenticate**: Getting credentials from supervisor app, logging into apps, obtaining access tokens
+- **query**: Reading/retrieving data from APIs (search, list, look up information)
+- **execute**: State-changing actions (send messages, create/update/delete items, make payments)
+- **verify**: Calling complete_task(), submitting final answer
+
+## Task Instruction
+{{task_instruction}}
+
+## Instructions
+Predict the likely sequence of subtasks needed. For each subtask:
+- z: exactly one category from above
+- d: concise description (1 sentence) mentioning specific apps and data involved
+
+Most AppWorld tasks follow a pattern like: explore → authenticate → query → execute → verify.
+Some tasks skip certain phases (e.g., no execute if read-only, no authenticate if no login needed).
+
+Output a JSON object with ONLY this structure:
+{
+  "subtasks": [
+    {"z": "explore", "d": "Look up Spotify and supervisor API docs to identify needed endpoints"},
+    {"z": "authenticate", "d": "Get Spotify credentials from supervisor and login"},
+    {"z": "query", "d": "Retrieve all playlists from Spotify using show_playlist_library"},
+    {"z": "verify", "d": "Submit the playlist count via complete_task"}
+  ]
+}
+
+Respond with ONLY the JSON object, no additional text.

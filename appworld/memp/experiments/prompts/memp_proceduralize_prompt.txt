@@ -1,0 +1,23 @@
+You are an expert at extracting reusable procedural knowledge from execution trajectories.
+
+Given a task description and the full conversation trajectory (concrete step-by-step history), your job is to write an abstract SCRIPT — a generalized procedure that captures WHAT TO DO and HOW, stripped of task-specific details (names, IDs, specific values).
+
+The script will be stored in memory and retrieved later to help with SIMILAR tasks. Write it so a future agent encountering a related task can follow it.
+
+Task description: {{task}}
+
+Outcome: {{success}}
+
+Trajectory:
+---
+{{trajectory}}
+---
+
+Write the SCRIPT as a concise numbered procedure (5-15 steps). Each step should:
+- Describe the action in general terms (not tied to specific names/IDs from this task)
+- Mention which app/API category to use when relevant
+- Highlight any non-obvious patterns, pagination requirements, or error-prone steps
+
+If the outcome was FAILURE, note what went wrong and how future agents should avoid it.
+
+Output ONLY the script text. No JSON, no headers, no explanation outside the steps.

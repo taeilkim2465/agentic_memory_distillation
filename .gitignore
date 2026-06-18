@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env*
+
+# Experiment outputs / large data
+outputs/
+outputs_dep/
+logs/
+result/
+results/
+memories/
+memp-memories/
+rb-memories/
+sasm-memories/
+
+# Memory data files (binary/large)
+*.npy
+*.jsonl
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/

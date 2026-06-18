@@ -1,0 +1,46 @@
+You are an expert at analyzing AppWorld agent trajectories.
+
+Your task is to decompose a completed AppWorld task trajectory into a sequence of functional subtasks.
+
+## AppWorld Subtask Categories
+Use EXACTLY one of these five categories for each subtask:
+- **explore**: Looking up API documentation, checking available APIs/apps, understanding task structure
+- **authenticate**: Retrieving credentials from supervisor, logging into apps, obtaining access tokens
+- **query**: Retrieving/reading data from APIs (GET-style operations, searching, listing, looking up)
+- **execute**: Performing actions that modify state (POST/PUT/DELETE operations, sending messages, completing payments, creating/updating/deleting items)
+- **verify**: Calling complete_task, verifying results, checking correctness
+
+## Instructions
+1. Read the full trajectory (task instruction + conversation history)
+2. Identify natural subtask boundaries where the agent's focus shifts
+3. For each subtask, assign a category z and write a concise description d
+4. The description d should contain: (1) the sub-goal being accomplished, (2) key entities involved (app names, data types)
+5. Aim for 3-7 subtasks per task
+
+## Task Instruction
+{{task_instruction}}
+
+## Full Trajectory
+{{trajectory}}
+
+## Output Format
+Return a JSON object with this exact structure:
+{
+  "reasoning": "Brief analysis of the trajectory phases",
+  "subtasks": [
+    {
+      "z": "authenticate",
+      "d": "Get Spotify credentials from supervisor and login to obtain access token",
+      "start_step": 1,
+      "end_step": 3
+    },
+    {
+      "z": "query",
+      "d": "Retrieve all playlists from Spotify using paginated show_playlist_library API",
+      "start_step": 4,
+      "end_step": 5
+    }
+  ]
+}
+
+Respond with ONLY the JSON object, no additional text.

@@ -1,0 +1,50 @@
+You are an expert at extracting transferable, reusable experiences from AppWorld agent trajectories.
+
+Your task is to abstract a subtask execution segment into a concise, transferable experience — either a **success pattern** (what to do) or a **failure avoidance strategy** (what not to do), depending on whether the overall task succeeded.
+
+## Critical Requirements
+1. **Remove task-specific details**: No specific user names, emails, passwords, IDs, or literal values
+2. **Keep structural patterns**: API call sequences, error handling strategies, data extraction patterns
+3. **Be actionable**: Describe WHAT to do / avoid and WHY
+4. **Be concise**: 3-8 bullet points maximum
+5. **Prefix each bullet** with ✓ for success patterns, ✗ for failure patterns
+
+## Subtask Information
+- Category (z): {{z}}
+- Description (d): {{d}}
+- Task succeeded overall: {{task_succeeded}}
+
+## Trajectory Segment for this Subtask
+{{trajectory_segment}}
+
+## Instructions by outcome
+
+**If task_succeeded = true** → Extract what worked:
+- Identify the correct API call sequence, parameter choices, and data handling
+- Highlight non-obvious but correct decisions (e.g. using phone_number not email as username)
+- Note any pagination or data aggregation patterns that were done correctly
+
+**If task_succeeded = false** → Extract what went wrong:
+- Identify the specific mistake or misunderstanding in this subtask
+- Describe the correct approach that should have been taken instead
+- Note any wrong assumptions about API parameters, data formats, or logic
+
+## Examples
+
+**Example (z=authenticate, succeeded=true):**
+- ✓ Use `apis.supervisor.show_account_passwords()` to get all app passwords at once
+- ✓ For Spotify/music apps, login username = user's email; for Phone app, use phone_number
+- ✓ Extract `access_token` from login response immediately and reuse across subsequent calls
+
+**Example (z=query, succeeded=false):**
+- ✗ Do not use a fixed `for i in range(10)` loop for pagination — it stops before all pages are retrieved
+- ✓ Instead, use `while True` with `page_index`; break when the API returns an empty list
+- ✗ Avoid assuming all items fit on one page — always paginate until empty response
+
+## Output Format
+Return a JSON object:
+{
+  "e": "Bullet-point experience here:\n- ✓/✗ Point 1\n- ✓/✗ Point 2"
+}
+
+Respond with ONLY the JSON object, no additional text.
