@@ -22,9 +22,9 @@ We evaluate all three methods on three tool-use benchmarks:
 
 ## Memory Methods
 
-- **SASM** (Structurally Aligned Subtask-Level Memory): Decomposes tasks into subtasks and stores structurally aligned subtask-level memories distilled from teacher trajectories.
-- **MEMP** (Memory Experience Memory Pool): Distills proceduralized experience memories from teacher agent trajectories for retrieval during student inference.
-- **RB** (ReasoningBank): Builds a self-evolving reasoning memory bank from successful teacher trajectories, enabling agents to scale with accumulated reasoning experience.
+- **SASM** — *Structurally Aligned Subtask-Level Memory for Software Engineering Agents*: Decomposes tasks into subtasks and stores structurally aligned subtask-level memories distilled from teacher trajectories.
+- **MEMP** — *MEMP: Exploring Agent Procedural Memory*: Distills proceduralized experience memories from teacher agent trajectories for retrieval during student inference.
+- **ReasoningBank (RB)** — *ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory*: Builds a self-evolving reasoning memory bank from successful teacher trajectories, enabling agents to scale with accumulated reasoning experience.
 
 ## Repository Structure
 
